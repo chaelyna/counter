@@ -1,35 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// 단일 컴포넌트 구성
+import { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  // useState 훅을 가져와 초기값 0으로 설정한 다음에 구조분해할당
+  // count와 setCount()로 분리함
+  // console.log(useState(0));
+  // console.log(count);
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>초심플 카운터</h1>
+      <p>{count}</p>
+      {/* 선언된 변수 표현식으로 출력 */}
+
+      <button onClick={() => setCount(count + 1)}> 증가 </button>
+      <button onClick={() => setCount(count - 1)}> 감소 </button>
+      {/* 자식이 부모로부터 props로 값을 전달받음 */}
+      {/* 버튼을 클릭하면 부모의 setCount()실행시킴 => 해당함수가 부모의 상태값을 바꿈 */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
