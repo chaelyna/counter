@@ -59,7 +59,7 @@ export default function App() {
   useEffect(() => { obstaclesRef.current = obstacles; }, [obstacles]);
 
   // 탭 제목
-  useEffect(() => { document.title = "슈퍼마리오st"; }, []);
+  useEffect(() => { document.title = "채린마리오"; }, []);
 
   // 입력
   useEffect(() => {
@@ -233,7 +233,7 @@ export default function App() {
 
   return (
     <div className="wrap">
-      <h1 className="title">슈퍼마리오 st</h1>
+      <h1 className="title">채린마리오</h1>
 
       <div className="game">
         {/* sky */}
