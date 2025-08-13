@@ -1,15 +1,195 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  gap: 20px 10px;
+* {
+  box-sizing: border-box;
 }
 
-#root h1,
-#root p {
-  flex: 1 1 100%;
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.wrap {
+  width: 1920px;
+  height: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #979797;
+
+  display: flex;
+  /* flexbox 사용 */
+  flex-direction: column;
+  /* 세로 배치 */
+  align-items: center;
+  /* 가로 중앙 정렬 */
+  justify-content: center;
+  /* 세로 중앙 정렬 */
+
+}
+
+
+.title {
+  text-align: center;
+  margin: 16px 0 12px;
+  letter-spacing: 2px;
+  font-size: 36px;
+  color: rgb(255, 255, 255);
+}
+
+
+.game {
+  position: relative;
+  width: 960px;
+  height: 420px;
+  margin: 0 auto;
+  border: 6px solid #cfd8dc;
+  background: #87ceeb;
+  overflow: hidden;
+  box-shadow: 0 8px 0 #111;
+}
+
+/* sky (backgroundPositionX는 JS에서 업데이트) */
+.sky {
+  position: absolute;
+  inset: 0 0 80px 0;
+  background: linear-gradient(#46b3ff, #57c1ff 60%, #5fd0ff 100%);
+}
+
+/* clouds */
+.cloud {
+  position: absolute;
+  width: 220px;
+  height: 120px;
+  background:
+    radial-gradient(closest-side, #fff 0 80%, transparent 81%),
+    radial-gradient(closest-side, #fff 0 80%, transparent 81%),
+    radial-gradient(closest-side, #fff 0 80%, transparent 81%);
+  background-size: 90px 90px, 120px 120px, 70px 70px;
+  background-position: 20px 40px, 70px 10px, 140px 50px;
+  background-repeat: no-repeat;
+  opacity: .9;
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, .08));
+}
+
+.c1 {
+  top: 40px;
+  left: 120px;
+}
+
+.c2 {
+  top: 90px;
+  left: 520px;
+  transform: scale(0.9);
+}
+
+.c3 {
+  top: 60px;
+  left: 760px;
+  transform: scale(0.8);
+}
+
+/* floor (backgroundPositionX는 JS에서 업데이트) */
+.floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
+  background:
+    linear-gradient(#0004 0 3px, transparent 3px),
+    repeating-linear-gradient(90deg, #8d2f12 0 58px, #000 58px 60px),
+    repeating-linear-gradient(#e7682e 0 18px, #c24d1a 18px 36px);
+  border-top: 4px solid #cfd8dc;
+}
+
+/* player */
+.player {
+  position: absolute;
+  bottom: 80px;
+  left: 24px;
+  background: linear-gradient(#ff6b6b, #e53935);
+  border: 3px solid #8b0000;
+  border-radius: 6px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, .25);
+  will-change: transform, height, width;
+  transition: width .08s, height .08s;
+}
+
+/* obstacle: ceiling bar */
+.obstacle.bar {
+  position: absolute;
+  background: #795548;
+  border: 2px solid #4e342e;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .25);
+  border-radius: 4px;
+}
+
+.obstacle.bar.hit {
+  opacity: 0.7;
+}
+
+/* 맞은 바는 살짝 흐리게 */
+
+/* HUD & controls */
+.hud {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  color: #fff;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .25);
+  font-size: 20px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 14px 0 32px;
+}
+
+.btn {
+  font: inherit;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #ff5148;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #9d2a24;
+}
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 #9d2a24;
+}
+
+/* GAME OVER 팝업 */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: #222;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 20px 24px;
+  text-align: center;
+  box-shadow: 0 10px 0 #111;
+  color: #fff;
+  /* GAME OVER, 점수 모두 흰색 */
+}
+
+.modal h2 {
+  margin: 6px 0 10px;
+}
+
+.modal .hint {
+  font-size: 10px;
+  opacity: .8;
+  margin-top: 8px;
 }
